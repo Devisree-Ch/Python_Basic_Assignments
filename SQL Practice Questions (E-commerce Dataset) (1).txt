@@ -1,0 +1,110 @@
+CREATE TABLE Customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    city VARCHAR(50)
+);
+CREATE TABLE Products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(50),
+    category VARCHAR(50),
+    price INT
+);
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    order_date DATE,
+    amount INT,
+    
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+    
+    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+);
+========================================================
+INSERT INTO Customers VALUES
+(1, 'Aman', 'Mumbai'),
+(2, 'Sara', 'Delhi'),
+(3, 'John', 'Pune'),
+(4, 'Neha', 'Mumbai'),
+(5, 'Ravi', 'Delhi');
+==========================================================
+INSERT INTO Products VALUES
+(101, 'Laptop', 'Electronics', 50000),
+(102, 'Mobile', 'Electronics', 20000),
+(103, 'Shoes', 'Fashion', 3000),
+(104, 'Watch', 'Accessories', 7000);
+=========================================================
+INSERT INTO Orders VALUES
+(1001, 1, 101, '2024-01-01', 50000),
+(1002, 2, 102, '2024-01-02', 20000),
+(1003, 1, 103, '2024-01-05', 3000),
+(1004, 3, 104, '2024-01-10', 7000),
+(1005, 4, 101, '2024-01-15', 50000);
+============================================================================
+1. Retrieve all records from the Customers table
+Select * from Customers;
+2. Display all products with their price
+select product_name,price from Products;
+3. Show all orders with order_id and amount 
+Select order_id,amount from Orders;
+4. Find customers who live in 'Mumbai'
+select * from customers where city='Mumbai';
+5. Retrieve products whose price is greater than 10000
+select * from Products where price>10000;
+6. Find orders where amount is less than 5000
+select * from Orders where amount<5000;
+7. Retrieve orders placed after '2024-01-05' 
+select * from orders where order_date>'2024-01-05';
+8. Find products where price is between 2000 and 20000
+select * From Products where price between 2000 and 20000;
+9. Retrieve customers who live in 'Delhi' OR 'Mumbai'
+select * from Customers where city='Delhi' OR city='Mumbai';
+10. Find orders where amount > 5000 AND customer_id = 1
+select * from orders where amount>5000 and customer_id=1;
+11. Retrieve products whose category is IN ('Electronics', 'Fashion') 
+select * From Products where category in('Electronics','Fashion');
+=================================================================
+12. Retrieve customer name and their order details
+select order_id,order_date,name from Orders INNER JOIN Customers ON Orders.customer_id=Customers.customer_id; 
+13. Display product name along with order amount
+Select product_name from Products INNER JOIN Orders ON Orders.product_id=Products.product_id;
+14. Find all orders with customer name and product name
+select name,product_name from Orders LEFT JOIN Products ON Orders.product_id=Products.product_id LEFT JOIN Customers ON Orders.customer_id=Customers.customer_id;
+15. Retrieve all customers and their orders (use LEFT JOIN)
+select name,order_id,order_date,amount from Customers LEFT JOIN Orders ON Customers.customer_id=Orders.customer_id;
+16. Find customers who have not placed any orders
+
+17. Find total number of orders
+select count(customer_id) from Orders;
+18. Find total sales amount
+select sum(amount) from Orders;
+19. Find average product price
+select AVG(price) from Products;
+20. Find maximum and minimum product price 
+select max(price), min(price) from Products;
+21. Find total order amount for each customer
+select sum(amount) from Orders group by customer_id;
+22. Count number of orders per customer
+select customer_id,count(order_id) from Orders group by customer_id;
+23. Find total sales per product 
+select product_id,sum(price) from Products group by product_id;
+24. Find customers whose total order amount is greater than 50000
+select customer_id from Orders where sum(amount)>50000;
+
+============================================================================
+25. Find customers who placed more than 2 orders 
+26. Display products sorted by price (highest first)
+27. Retrieve top 3 most expensive products
+28. Skip first 2 products and show next 3 
+29. Show each order with total sales (use SUM() OVER)
+30. Rank orders based on amount (use RANK)
+31. Show previous order amount for each customer (use LAG)
+32. Show next order amount for each customer (use LEAD)
+33. Rank products within each category (use PARTITION BY) 
+34. Find customer name and total order amount (JOIN + GROUP BY)
+35. Find top 2 customers based on total spending
+36. Show order details along with previous order amount

@@ -96,6 +96,9 @@ print("Finding length of each element in the list using function",lenli)
 # list2=[4, 5, 6]
 # res = list(map(lambda list2:list1.append(list2),list1,list2))
 # print("Adding 2 lists using map", res())
+
+
+
 # 18] Use map() to extract the first letter of each word in a list.
 list_words = ['Apple','Zebra','Mango']
 res=list(map(lambda list_words:list_words[0],list_words))

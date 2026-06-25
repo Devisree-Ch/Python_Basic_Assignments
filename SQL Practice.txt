@@ -1,0 +1,118 @@
+CREATE table Department(
+Deptid INT PRIMARY KEY,
+DeptName VARCHAR(20));
+
+CREATE table Employees(
+EmpID INT PRIMARY KEY,
+EmpName VARCHAR(50),
+EmpSalary FLOAT,
+Deptid INT,
+FOREIGN KEY(Deptid) REFERENCES Department(Deptid));
+
+
+INSERT into Department VALUES
+(1, 'IT'),
+(2, 'HR'),
+(3, 'Finance'),
+(4, 'Marketing');
+
+-- Select * from Department;
+
+INSERT into Employees VALUES
+(1, 'Aman', 25000, 1),
+(2, 'Rahul', 30000, 2),
+(3, 'Sara', 40000, 3),
+(4, 'John', 35000, 1),
+(5, 'Ali', 28000, 4),
+(6, 'Neha', 32000, 2),
+(7, 'Priya', 45000, 3),
+(8, 'Vikas', 27000, 1),
+(9, 'Kiran', 38000, 4),
+(10, 'Zoya', 50000, 2);
+
+Select * from Employees;
+-- Retrieve all employees whose salary is greater than 30000
+Select * from Employees where EmpSalary > 30000;
+-- Find employees who belong to department 1
+Select * from Employees where Deptid=1;
+-- Display employees whose salary is less than 25000
+Select * from Employees where EmpSalary < 25000;
+-- Retrieve employee details where emp_id = 3
+Select * from Employees where EmpID=3;
+-- Show employees whose salary is equal to 35000
+Select * from Employees where EmpSalary=35000;
+-- Find employees whoseFind employees whose name contains 'a' anywhere
+Select * from Employees where EmpName like '%a%'
+-- Retrieve employees whose dept_id is NOT 1
+Select * from Employees where Deptid != 1;
+-- Find employees whose dept_id is either 2 or 3 using IN
+Select * from Employees where Deptid IN (2,3);
+-- Retrieve employees whose salary is not between 25000 and 40000
+Select * From Employees where EmpSalary NOT BETWEEN 25000 AND 40000;
+-- Find employees whose name does not start with 'S'
+Select * from Employees where EmpName NOT LIKE 'S%';
+-- salary is greater than 25000 AND dept_id = 1
+Select * from Employees where EmpSalary>25000 and Deptid=1;
+-- Retrieve employees who belong to department 1 OR department 2
+Select * from Employees where Deptid = 1 OR Deptid = 2;
+-- Find employees whose salary is between 20000 and 40000
+Select * from Employees where EmpSalary BETWEEN 20000 and 40000;
+-- Display employees whose name starts with 'A'
+Select * from Employees where EmpName Like 'A%';
+-- Display employees whose name ends with 'a'
+Select * from Employees where EmpName LIKE '%a';
+-- Find employees whose salary is greater than 30000 AND less than 50000
+Select * from Employees where EmpSalary>30000 AND EmpSalary<50000;
+-- Retrieve employees who belong to department 1 and have salary > 25000
+Select * from Employees where Deptid = 1 AND EmpSalary > 25000;
+-- Find employees whose name starts with 'A' or 'S'
+sELECT * FROM Employees where EmpName like 'A%' or EmpName like 'S%';
+-- Display employees whose salary is in (25000, 30000, 35000)
+sELECT * FROM Employees WHERE EmpSalary IN (25000, 30000, 35000);
+-- Find employees whose dept_id is not in (1, 2)
+sELECT * fROM Employees where Deptid not in (1,2);
+-- Write a query to find employees whose:
+-- salary > 25000
+-- AND name starts with 'A'
+Select * from Employees where EmpSalary > 25000 AND EmpName like 'A%';
+-- Find employees whose:
+-- dept_id = 1
+-- OR salary > 40000
+Select * from Employees where Deptid = 1 OR EmpSalary >40000;
+================================================================================================================================
+-- Retrieve all employees with their department names
+Select * from Employees INNER JOIN Department ON Employees.Deptid=Department.deptid;
+-- Display only employee names and department names
+SELECT Employees.EmpName, Department.DeptName from Employees INNER JOIN Department ON Employees.Deptid=Department.Deptid;
+-- Find employees who belong to the IT department
+Select Employees.EmpName, Department.DeptName from Employees INNER JOIN Department ON Employees.Deptid=Department.Deptid where DeptName = 'IT';
+-- Retrieve employees whose salary is greater than 40000
+Select * from Employees where EmpSalary>40000;
+-- Find employees whose salary is between 35000 and 45000
+SELECT * FROM Employees WHERE EmpSalary BETWEEN 35000 AND 45000;
+-- Retrieve employees who belong to HR or Finance department
+Select * from Employees INNER JOIN Department ON Employees.Deptid=Department.Deptid WHERE DeptName IN ('HR','Finance');
+-- Display employees whose name starts with 'A'
+Select * from Employees where EmpName LIKE 'A%';
+-- Count total number of employees
+Select count(*) from Employees;
+-- Retrieve employee name, salary, and department name using INNER JOIN
+Select EmpName,EmpSalary, DeptName from Employees INNER JOIN Department ON Employees.Deptid=Department.Deptid;
+-- Retrieve all employees with department names using LEFT JOIN
+Select * from Employees LEFT JOIN Department ON Employees.Deptid=Department.Deptid;
+-- Retrieve all departments with employees using RIGHT JOIN
+Select * From Employees RIGHT JOIN Department ON Employees.Deptid=Department.Deptid;
+-- Count number of employees in each department
+select Deptid, count(Deptid) from Employees GROUP BY Deptid;
+-- Find total salary of employees in each department
+select Deptid, sum(EmpSalary) from Employees GROUP BY Deptid;
+-- Display employees in ascending order of salary
+Select EmpSalary from Employees ORDER BY EmpSalary Asc;
+-- Display employees in descending order of salary
+Select EmpSalary from Employees ORDER BY EmpSalary Desc;
+-- Find the maximum salary
+Select max(EmpSalary) from Employees;
+-- Find the minimum salary
+Select min(EmpSalary) from Employees;
+-- Count total number of employees
+Select count(EmpID) from Employees;
